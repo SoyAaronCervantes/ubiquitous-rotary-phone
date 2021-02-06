@@ -8,7 +8,7 @@ const val MAINMENU = """
 """;
 
 const val ADDINGREDIENT = """
-  Quieres agregar otro ingrediente?
+  Quieres agregar otra categoría?
   1. Si
   2. No
 """
@@ -18,15 +18,15 @@ const val SPACELINES = "*************************************************\n";
 fun main() {
   var endProgram = false
   val ingredientsList = listOf("Agua", "Leche", "Carne", "Verduras", "Frutas", "Cereal", "Huevos", "Aceite")
-  var recipeList: List< List<String> > = listOf()
+  var recipes: List< List<String> > = listOf()
 
   do when ( showMainMenu() ) {
     1 -> {
       val recipe = createRecipe( ingredientsList )
-      recipeList = recipeList.plusElement( recipe )
+      recipes = recipes.plusElement( recipe )
     }
     2 -> {
-      recipeList(recipeList)
+      recipes(recipes)
     }
     3 -> {
       println("Vuelve pronto!");
@@ -48,13 +48,13 @@ fun createRecipe(ingredientsList: List<String>): List<String> {
 
   while ( canShow ) {
 
-    println("Estos son los ingredientes:");
+    println("Selecciona por categoría el ingrediente que buscas:");
 
     if ( recipeWithCurrentIngredients.isNotEmpty() ) {
 
       showIngredients( recipeWithCurrentIngredients );
 
-      println("Selecciona un ingrediente, y lo agregamos a tu receta:");
+      println("Selecciona una categoría, y lo agregamos a tu receta:");
 
       val index = readLine()?.toInt()?.dec()
 
@@ -80,7 +80,7 @@ fun createRecipe(ingredientsList: List<String>): List<String> {
   return recipe;
 }
 
-fun recipeList( recipesList: List< List<String> > ) {
+fun recipes( recipesList: List< List<String> > ) {
   val stayInRecipe = true
 
   while ( stayInRecipe ) {
@@ -106,8 +106,8 @@ fun recipeList( recipesList: List< List<String> > ) {
 
 fun showRecipes( recipesList: List< List<String> > ) {
   for ( ( i, recipe ) in recipesList.withIndex() ) {
-    println("Receta ${ i.inc() }, Ingredientes: ${ recipe.size }")
-    println("Si quieres ver sus ingredientes presiona: ${i.inc()}")
+    println("Receta ${ i.inc() }, Categorías: ${ recipe.size }")
+    println("Si quieres ver las categorías presiona: ${i.inc()}")
   }
 }
 
@@ -125,7 +125,7 @@ fun showMainMenu(): Int {
 
 fun addIngredientToRecipe( index: Int, ingredientsList: List<String> ): String {
   val ingredient = ingredientsList[ index ]
-  println("Ingrediente agregado!")
+  println("Categoría agregado!")
   println(SPACELINES);
   return ingredient
 }
