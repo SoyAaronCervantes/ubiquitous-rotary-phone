@@ -17,12 +17,12 @@ const val SPACELINES = "*************************************************\n";
 
 fun main() {
   var endProgram = false
-  val ingredientsList = listOf("Agua", "Leche", "Carne", "Verduras", "Frutas", "Cereal", "Huevos", "Aceite")
+  val ingredients = listOf("Agua", "Leche", "Carne", "Verduras", "Frutas", "Cereal", "Huevos", "Aceite")
   var recipes: List< List<String> > = listOf()
 
   do when ( showMainMenu() ) {
     1 -> {
-      val recipe = createRecipe( ingredientsList )
+      val recipe = createRecipe( ingredients )
       recipes = recipes.plusElement( recipe )
     }
     2 -> {
@@ -41,9 +41,9 @@ fun main() {
   while (!endProgram)
 }
 
-fun createRecipe(ingredientsList: List<String>): List<String> {
+fun createRecipe(ingredients: List<String>): List<String> {
   var recipe = listOf<String>();
-  var recipeWithCurrentIngredients = ingredientsList;
+  var recipeWithCurrentIngredients = ingredients;
   var canShow = true
 
   while ( canShow ) {
@@ -80,11 +80,11 @@ fun createRecipe(ingredientsList: List<String>): List<String> {
   return recipe;
 }
 
-fun recipes( recipesList: List< List<String> > ) {
+fun recipes( recipes: List< List<String> > ) {
   val stayInRecipe = true
 
   while ( stayInRecipe ) {
-    showRecipes( recipesList );
+    showRecipes( recipes );
     println("\n$SPACELINES")
     println("Si quieres volver presiona 0")
     var index = readLine()?.toInt() ?: 0
@@ -93,10 +93,10 @@ fun recipes( recipesList: List< List<String> > ) {
 
     index = index.dec()
 
-    if ( recipesList[ index ].isNullOrEmpty() ) {
-      println( "Debes seleccionar un numero entre el 1 y ${ recipesList.size }" )
+    if ( recipes[ index ].isNullOrEmpty() ) {
+      println( "Debes seleccionar un numero entre el 1 y ${ recipes.size }" )
     } else {
-      showIngredients( recipesList[ index ] )
+      showIngredients( recipes[ index ] )
     }
 
     println(SPACELINES)
@@ -104,15 +104,15 @@ fun recipes( recipesList: List< List<String> > ) {
   }
 }
 
-fun showRecipes( recipesList: List< List<String> > ) {
-  for ( ( i, recipe ) in recipesList.withIndex() ) {
+fun showRecipes( recipes: List< List<String> > ) {
+  for ( ( i, recipe ) in recipes.withIndex() ) {
     println("Receta ${ i.inc() }, Categorías: ${ recipe.size }")
     println("Si quieres ver las categorías presiona: ${i.inc()}")
   }
 }
 
-fun showIngredients(ingredientsList: List<String>) {
-  for ( ( index, ingredient ) in ingredientsList.withIndex() ) {
+fun showIngredients(ingredients: List<String>) {
+  for ( ( index, ingredient ) in ingredients.withIndex() ) {
     println("${ index.inc() } - $ingredient")
   }
 
@@ -123,14 +123,14 @@ fun showMainMenu(): Int {
   return readLine()?.toInt() ?: 4;
 }
 
-fun addIngredientToRecipe( index: Int, ingredientsList: List<String> ): String {
-  val ingredient = ingredientsList[ index ]
+fun addIngredientToRecipe( index: Int, ingredients: List<String> ): String {
+  val ingredient = ingredients[ index ]
   println("Categoría agregado!")
   println(SPACELINES);
   return ingredient
 }
 
-fun removeIngredient(index: Int, ingredientsList: List<String> ): List<String> {
-  val list = ingredientsList.map { it };
-  return list.filter { ingredientsList[index] !== it }
+fun removeIngredient( index: Int, ingredients: List<String> ): List<String> {
+  val list = ingredients.map { it };
+  return list.filter { ingredients[index] !== it }
 }
